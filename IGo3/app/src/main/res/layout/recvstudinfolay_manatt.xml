@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_margin="3dp"
+    android:padding="2dp"
+    android:background="@drawable/studinfolayout">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.25"
+        android:padding="5dp"
+        android:layout_marginVertical="2dp"
+        android:layout_marginHorizontal="5dp"
+        android:background="@drawable/loginbg"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        >
+
+        <TextView
+            android:id="@+id/studregno_manatt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:text="RegNo"
+            android:textColorHint="#fff"
+            android:gravity="center"
+            android:layout_margin="1dp"
+            android:padding="2dp"
+            android:textSize="14dp" />
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="#fff"
+            android:layout_margin="3dp"/>
+
+        <TextView
+            android:id="@+id/studname_manatt"
+            android:layout_width="wrap_content"
+            android:textColorHint="#fff"
+            android:layout_height="wrap_content"
+            android:textColor="#fff"
+            android:layout_margin="1dp"
+            android:hint="student Name"
+            android:gravity="left"
+            android:padding="2dp"
+            android:textSize="14dp" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="2dp"
+        android:layout_weight="0.75"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <CheckBox
+            android:id="@+id/presentcbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000"
+            android:text="Present"
+            android:padding="2dp"
+            android:textStyle="bold"
+            android:textColorHighlight="#00f"
+            android:background="#fff"
+            />
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
