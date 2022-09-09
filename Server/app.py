@@ -1,45 +1,111 @@
+# from unicodedata import name
+# import pandas as pd
 from flask import *
 import json
 from select import select
 import mysql.connector
 import werkzeug
+
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="14072003jp",
+    password="admin",
     database="test"
 )
 cursor = mydb.cursor()
 app = Flask(__name__)
 app.secret_key="?mvf3t56@345+1234BgTNDY636773!@#"
 
-# @app.route("/",methods=["POST"])
-# def home():
-#     name = request.form["uname"]
-#     print(name)
-#     return "hello"
+## TESTING SESSION 
+
+# @app.route("/test",methods=["POST","GET"])
+# def test():
+#     var=" "
+#     if 'username' in session:
+#         var=session['username']
+#     return var
+
+## ADD CLASS 
+
+@app.route('/addclass',methods=['POST'])
+def addclass():
+    tablename = str(request.form['classname'])
+    subjcode = str(request.form['subjcode'])
+    teacherId = str(request.form['teacherId'])
+    tablename += subjcode
+    selectedstudent = str(request.form["att"])
+    namelist = json.loads(selectedstudent)
+    query = f"select * from {tablename}"
+    cursor.execute(query)
+    check = cursor.fetchone()
+    cursor.reset()
+    rollnum =[]
+    Query = ""
+    if not check:
+        insertQuery = f"insert into classdetails values({teacherId},{tablename},{subjcode})"
+        cursor.execute(insertQuery)
+        cursor.reset()
+        Query = f"create table {tablename}(c_date varchar(10)"
+        for i in range(len(namelist)):
+            Query+="%s varchar(1),"
+            rollnum.append(namelist[i])
+        Query=Query[:-1]
+        Query+=")" 
+    else:
+        Query = f"Alter table {tablename} "
+        for i in range(len(namelist)):
+            Query+="Add column %s varchar(1),"
+            rollnum.append(namelist[i])
+        Query = Query[:-1]
+    cursor.execute(Query,rollnum)
+    cursor.reset()
+    return "Sucessfully created / updated"
+
+## DELETE CLASS
+
+@app.route('/deleteclass',methods=['POST'])
+def deleteclass():
+    classname = str(request.form['tablename'])
+    subjcode = str(request.form['subjcode'])
+    # teacherId = str(request.form['teacherId'])
+    Query = f"drop table {classname}_{subjcode}"
+    cursor.execute(Query)
+    cursor.reset()
+    Query = f"Delete from classdetails where subjcode = {subjcode}"
+    cursor.execute(Query)
+    cursor.reset()
+    return "Successfully  deleted"
+
+## VIEW CLASS
+
+@app.route('/viewclass',methos = ['POST'])
+def viewclass():
+    teacherId = str(request.form['teacherid'])
+    Query = f"select * from classdetails where teacherId = {teacherId}"
+    cursor.execute(Query)
+    detail = cursor.fetchone()
+    cursor.reset()
+    print(detail)
+
+## LOGIN
+
 @app.route('/login',methods=['POST'])
 def login():
     user_name = str(request.form["uname"])
     pass_word = str(request.form["pass"])   #getting name and pass
-    select = "select * from sample where name = %s and pass = %s"
+    Query = "select * from sample where name = %s and pass = %s"
     val =[user_name,pass_word]
-    cursor.execute(select,val)
+    cursor.execute(Query,val)
     account = cursor.fetchone()
     cursor.reset()
     if account:
-        session['username']=user_name
-        print(session)
+        # session['username']=user_name
+        # print(session)
         return "true"
     else :
         return "false"    
-  
-@app.route("/test",methods=["POST","GET"])
-def test():
-    var=" "
-    if 'username' in session:
-        var=session['username']
-    return var
+
+## GETTING STUDENT DETAILS
 
 @app.route("/studentdetails",methods=["POST"]) 
 def stduentdetails():
@@ -51,6 +117,10 @@ def stduentdetails():
     details ={detail[i][0]:detail[i][1] for i in range(0,len(detail))}
     returner = json.dumps(details)
     return returner
+
+## IMAGE UPLOAD
+
+
 @app.route("/imageUpload",methods=["Post"])
 def imageUpload():
     imagefile = request.files['t1']
@@ -61,6 +131,8 @@ def imageUpload():
         return "Image Uploaded sucessfully"
     else :
         return ""
+
+## UPDATE ATTENDENCE
 
 @app.route("/updateattendance",methods=["POST"])
 def updateattendance():
@@ -87,6 +159,6 @@ def updateattendance():
     else:
         return "Attendance already taken"
 
- 
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(host="0.0.0.0",debug=True)
