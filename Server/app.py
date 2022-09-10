@@ -1,10 +1,17 @@
 # from unicodedata import name
-# import pandas as pd
+import base64
+import pandas as pd
 from flask import *
 import json
-from select import select
+# from select import select
 import mysql.connector
 import werkzeug
+# import os
+import io
+import cv2
+from PIL import Image
+# from PIL import ImageEnhance
+import uuid
 
 mydb = mysql.connector.connect(
     host="localhost",
@@ -78,7 +85,7 @@ def deleteclass():
 
 ## VIEW CLASS
 
-@app.route('/viewclass',methos = ['POST'])
+@app.route('/viewclass',methods = ['POST'])
 def viewclass():
     teacherId = str(request.form['teacherid'])
     Query = f"select * from classdetails where teacherId = {teacherId}"
@@ -123,15 +130,12 @@ def stduentdetails():
 
 @app.route("/imageUpload",methods=["Post"])
 def imageUpload():
-    imagefile = request.files['t1']
-    if imagefile:
-        filename = werkzeug.utils.secure_filename(imagefile.filename)
-        print("\nReceived image File name : " + imagefile.filename)
-        imagefile.save("images/"+filename)
-        return "Image Uploaded sucessfully"
-    else :
-        return ""
 
+    imgdata=base64.b64decode(request.form['image'])
+    img = Image.open(io.BytesIO(imgdata))
+    img.save(f"Server\images\{uuid.uuid1()}.png",quality=100)
+    return "Image Uploaded Sucessfully"
+    
 ## UPDATE ATTENDENCE
 
 @app.route("/updateattendance",methods=["POST"])
@@ -143,7 +147,6 @@ def updateattendance():
     cursor.execute(query)
     check = cursor.fetchone()
     cursor.reset()
-    # print(check)
     if not check:
         insert =f"insert into {tab} values(curdate(),"
         val=[]
@@ -161,4 +164,4 @@ def updateattendance():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",debug=True)
+    app.run(host="0.0.0.0")
