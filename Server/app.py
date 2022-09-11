@@ -1,5 +1,7 @@
 # from unicodedata import name
 import base64
+from pydoc import classname
+from select import select
 import pandas as pd
 from flask import *
 import json
@@ -12,16 +14,18 @@ import cv2
 from PIL import Image
 # from PIL import ImageEnhance
 import uuid
-
+from finalML.cropper import cropper
+ALLOWED_EXTENSIONS={'jpeg','png','jpeg'}
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="admin",
+    password="14072003jp",
     database="test"
 )
 cursor = mydb.cursor()
 app = Flask(__name__)
 app.secret_key="?mvf3t56@345+1234BgTNDY636773!@#"
+years=['2022','2021','2020','2023']
 
 ## TESTING SESSION 
 
@@ -36,23 +40,28 @@ app.secret_key="?mvf3t56@345+1234BgTNDY636773!@#"
 
 @app.route('/addclass',methods=['POST'])
 def addclass():
-    tablename = str(request.form['classname'])
-    subjcode = str(request.form['subjcode'])
-    teacherId = str(request.form['teacherId'])
-    tablename += subjcode
-    selectedstudent = str(request.form["att"])
-    namelist = json.loads(selectedstudent)
-    query = f"select * from {tablename}"
+    dept = str(request.form['dept'])
+    yr = int(request.form['yr'])
+    batch = str(request.form['batch'])
+    subcode = str(request.form['subjcode'])#subcode
+    teacher_id = str(request.form['teacherId'])#teacherid
+    year = year[yr+1]
+    classname=dept+'_'+year+'_'+batch#class
+    tablename=classname+'_'+subcode+'att'
+    student=request.form['select_students']
+    namelist=json.loads(student)
+    strength=len(namelist)
+    rollnum=[]
+    query=f"select * from class_map where teacher_id='{teacher_id}' and class='{classname}' and subcode='{subcode}'"
     cursor.execute(query)
-    check = cursor.fetchone()
+    check = cursor.fetchone
     cursor.reset()
-    rollnum =[]
     Query = ""
     if not check:
-        insertQuery = f"insert into classdetails values({teacherId},{tablename},{subjcode})"
+        insertQuery = f"insert into class_map values({teacher_id},{classname},{subcode},{strength})"
         cursor.execute(insertQuery)
         cursor.reset()
-        Query = f"create table {tablename}(c_date varchar(10)"
+        Query = f"create table {tablename}(c_date date "
         for i in range(len(namelist)):
             Query+="%s varchar(1),"
             rollnum.append(namelist[i])
@@ -78,7 +87,7 @@ def deleteclass():
     Query = f"drop table {classname}_{subjcode}"
     cursor.execute(Query)
     cursor.reset()
-    Query = f"Delete from classdetails where subjcode = {subjcode}"
+    Query = f"Delete from classdetails where subjcode = '{subjcode}'"
     cursor.execute(Query)
     cursor.reset()
     return "Successfully  deleted"
@@ -87,12 +96,17 @@ def deleteclass():
 
 @app.route('/viewclass',methods = ['POST'])
 def viewclass():
-    teacherId = str(request.form['teacherid'])
-    Query = f"select * from classdetails where teacherId = {teacherId}"
+    teacherId = str(request.form['teacher_id'])
+    Query = f"select * from class_map where teacher_id='{teacherId}'"
     cursor.execute(Query)
-    detail = cursor.fetchone()
+    detail = cursor.fetchall()
     cursor.reset()
-    print(detail)
+    res={}
+    c=1
+    for i in detail:
+        res["class"+str(c)]={"class":i[1],"course":i[2],"strength":i[3]} 
+        c=c+1
+    return res
 
 ## LOGIN
 
@@ -116,7 +130,13 @@ def login():
 
 @app.route("/studentdetails",methods=["POST"]) 
 def stduentdetails():
-    class_name = str(request.form["classname"])
+    dept = str(request.form['dept'])
+    yr = int(request.form['yr'])
+    batch = str(request.form['batch'])
+    year = years[yr-1]
+    class_name=dept+'_'+year+'_'+'batch'+str(batch)#class
+    print(class_name)
+    #class_name = str(request.form["classname"])
     query = f"select * from {class_name}"
     cursor.execute(query)       
     detail = cursor.fetchall()
@@ -133,7 +153,8 @@ def imageUpload():
 
     imgdata=base64.b64decode(request.form['image'])
     img = Image.open(io.BytesIO(imgdata))
-    img.save(f"Server\images\{uuid.uuid1()}.png",quality=100)
+    img.save(f"finalML/frames/{uuid.uuid1()}.jpeg",quality=100)
+    cropper()
     return "Image Uploaded Sucessfully"
     
 ## UPDATE ATTENDENCE
