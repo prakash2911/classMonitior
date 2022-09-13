@@ -24,8 +24,9 @@
             android:id="@+id/bottomnav_main2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#61916e"
-            app:itemIconTint="#000"
+            android:background="#607EAA"
+            app:itemIconTint="#ffff"
+            app:itemTextColor="#ffff"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/home_menu" />
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.igo;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -24,49 +26,46 @@ public class Toserversend {
     public String url;
     public AsyncHttpClient client;
     public RequestParams params;
-    public String response;
+    public ArrayList<studentinfo_manatt> studinf;
+    //public studentinfo_manatt temp;
     Toserversend(){
-        this.url="http://192.168.241.167:5000";
+        this.url=BaseUrl.url;
         this.client=new AsyncHttpClient();
         this.params=new RequestParams();
-        this.response = "";
+        studinf=new ArrayList<studentinfo_manatt>();
+        //temp=new studentinfo_manatt("","",true);
+        //this.response = "";
     }
 
-    public void posting(Context context,studentinfo_manatt[] studinf)
+    public boolean posting(Context context)
     {
-
-        this.client.post(this.url, params, new AsyncHttpResponseHandler() {
+        this.client.post(this.url,this.params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String str = new String(responseBody, StandardCharsets.UTF_8);
                 String res=new String();
-                JsonParser jsonParser=new JsonParser();
+                //JsonParser jsonParser=new JsonParser();
                 try {
                     JSONObject obj=new JSONObject(str);
                     Log.i(TAG,"JSON Created");
-                    for(int i=0;i<60;i++){
-//                        res+=obj.names().getString(i);
-//                        res+=":";
-//                        res+=obj.get(obj.names().getString(i));
-//                        res+="\n";
-                        //studentinfo_manatt stud=new studentinfo_manatt();
-                        studinf[i].setRegNo(obj.names().getString(i));
-                        studinf[i].setName(obj.get(obj.names().getString(i)).toString());
-                        System.out.println(studinf[i].getName()+"\n");
+                    for(int i=0;i<obj.length();i++){
+                        studentinfo_manatt temp=new studentinfo_manatt("","",true);
+                        temp.setRegNo(obj.names().getString(i));
+                        temp.setName(obj.get(obj.names().getString(i)).toString());
+//                        System.out.println(studinf[i].getName()+"\n");
+                        studinf.add(temp);
+
                     }
-                    Toast.makeText(context,"Created JSON Object:\n"+res,Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context,"Created JSON Object:\n"+str,Toast.LENGTH_SHORT).show();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                //Toast.makeText(context,"Success"+str,Toast.LENGTH_SHORT).show();
-                //System.out.println(str);
-                //Log.i(TAG,"Success");
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 Toast.makeText(context,"Failure",Toast.LENGTH_SHORT).show();
                 Log.i(TAG,"Failure");
-                response=null;
+                //response=null;
             }
         });
         Log.i(TAG,"Returned STUD");
@@ -74,9 +73,47 @@ public class Toserversend {
 //        for(int i=0;i<5;i++){
 //            System.out.println(studinf[i].getName()+"\n");
 //        }
+        return true;
     }
 
-    public String getResponse(){
-        return this.response;
+    public void posting1(Context context) {
+        this.client.post(this.url,this.params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String str=new String(responseBody);
+                System.out.print("\n\n"+str+"\n\n");
+                Toast.makeText(context.getApplicationContext(),str,Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(context,"Failure",Toast.LENGTH_SHORT).show();
+                Log.i(TAG,"Failure");
+                //flag[0]=false;
+                //response=null;
+            }
+        });
     }
+
+    public String picsend(Context context) {
+        String resp=new String();
+        this.client.post(this.url,this.params, new AsyncHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                String resp=new String(responseBody);
+//                System.out.print("\n\n"+str+"\n\n");
+                Toast.makeText(context.getApplicationContext(),resp,Toast.LENGTH_LONG).show();
+            }
+            @Override
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+                Toast.makeText(context,"Failure",Toast.LENGTH_SHORT).show();
+                Log.i(TAG,"Failure");
+                //flag[0]=false;
+                //response=null;
+            }
+        });
+        return resp;
+    }
+    //public String getResponse(){
+//        return this.response;
+//    }
 }

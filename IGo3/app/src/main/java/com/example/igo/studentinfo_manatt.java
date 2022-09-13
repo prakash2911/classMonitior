@@ -20,7 +20,7 @@ public class studentinfo_manatt {
     }
 
     public void setName(String name) {
-        Name = name;
+        this.Name = name;
     }
 
     public String getRegNo() {
@@ -28,7 +28,7 @@ public class studentinfo_manatt {
     }
 
     public void setRegNo(String regNo) {
-        RegNo = regNo;
+        this.RegNo = regNo;
     }
 
     public boolean getCb() {

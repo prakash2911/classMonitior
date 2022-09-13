@@ -3,6 +3,20 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/drawable/attselinpbg.xml" value="0.1555" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/drawable/loginbg.xml" value="0.1555" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/drawable/loginbtnbg.xml" value="0.1555" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/drawable/logininpbg.xml" value="0.1555" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/activity_main2.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/attendanceselect.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/cameraopentest.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/homepage.xml" value="0.264" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/manualattendance.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/recv_myclass.xml" value="0.18633540372670807" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/recvmyclass.xml" value="0.152" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/recvstudinfolay_manatt.xml" value="0.25" />
+        <entry key="..\:/Users/HP/AndroidStudioProjects/IGo3/app/src/main/res/layout/take_attendance.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/homebg.xml" value="0.21851851851851853" />
         <entry key="app/src/main/res/drawable/ic_Attendacelogo_background.xml" value="0.175" />
         <entry key="app/src/main/res/drawable/ic_MyClass_background.xml" value="0.14375" />

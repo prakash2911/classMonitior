@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#61916e"
+        android:background="#607EAA"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp">
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/loginbg"
+            android:background="@drawable/attselinpbg"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="20dp">
@@ -27,8 +27,9 @@
                 android:layout_marginBottom="40dp"
                 android:gravity="center"
                 android:text="SELECT YOUR CLASS"
-                android:textColor="#fff"
-                android:textSize="25dp"/>
+                android:textColor="#000"
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
 
             <Spinner
@@ -36,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="15dp"
-                android:background="#000"
+                android:background="#607EAA"
                 android:dropDownSelector="@color/white"
                 android:foregroundTint="#000"
                 android:padding="10dp"
@@ -47,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="15dp"
-                android:background="#000"
+                android:background="#607EAA"
                 android:dropDownSelector="@color/white"
                 android:foregroundTint="#000"
                 android:padding="10dp"
@@ -60,12 +61,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:gravity="center"
         >
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/toattendance"
             android:layout_width="match_parent"
-            android:layout_margin="10dp"
+            android:layout_margin="0dp"
+            android:textStyle="bold"
+            android:textColor="#000"
             android:gravity="center"
             android:paddingRight="15dp"
             android:textSize="20dp"
@@ -74,7 +78,7 @@
             android:drawableTint="#000"
             android:layout_height="wrap_content"
             android:text="Next"
-            android:background="@drawable/loginbtnbg" />
+            android:background="#DBDFFD" />
 
     </LinearLayout>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#61916e"
+    android:background="@drawable/loginbg"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:background="@drawable/loginbg"
+        android:background="@drawable/logininpbg"
         android:gravity="center"
         android:orientation="vertical"
         android:padding="10dp">
@@ -48,28 +48,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_margin="10dp"
-                android:background="#EDEDED"
                 android:drawableLeft="@drawable/ic_baseline_supervised_user_circle_24"
                 android:drawablePadding="5dp"
-                android:textColor="#000"
+                android:paddingBottom="5dp"
+                android:textColor="#000000"
                 android:drawableTint="#558478"
                 android:drawableTintMode="multiply"
                 android:gravity="left"
+                android:textSize="16dp"
                 android:hint="\tUSER-ID"
-                android:textColorHint="#000"
+                android:textColorHint="#60000000"
                 android:padding="5dp" />
-
             <EditText
                 android:id="@+id/passwrd"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:inputType="textPassword"
+                android:textSize="16dp"
                 android:layout_margin="10dp"
-                android:textColor="#000"
-                android:background="#EDEDED"
+                android:textColor="#000000"
+                android:paddingBottom="5dp"
                 android:drawableLeft="@drawable/ic_baseline_vpn_key_24"
                 android:drawablePadding="5dp"
                 android:drawableTint="#558478"
-                android:textColorHint="#000"
+                android:textColorHint="#60000000"
                 android:gravity="left"
                 android:hint="\tPASSWORD"
                 android:padding="5dp" />
@@ -79,11 +81,14 @@
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
+                android:elevation="20dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/loginbtnbg"
                 android:text="SIGN-IN"
+                android:textStyle="bold"
                 android:textColor="#fff"
                 android:textSize="18dp" />
+
 
         </LinearLayout>
 

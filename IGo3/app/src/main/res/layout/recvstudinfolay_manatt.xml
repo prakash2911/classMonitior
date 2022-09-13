@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/manatt_linlay"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:layout_margin="3dp"
     android:padding="2dp"
-    android:background="@drawable/studinfolayout">
-
+    android:background="#42855B"
+    >
+<!--FF4A4A-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,16 +16,16 @@
         android:padding="5dp"
         android:layout_marginVertical="2dp"
         android:layout_marginHorizontal="5dp"
-        android:background="@drawable/loginbg"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         >
-
+<!--        android:background="@drawable/loginbg"-->
         <TextView
             android:id="@+id/studregno_manatt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#fff"
+            android:textColor="#FFFBE7"
+            android:textStyle="bold"
             android:text="RegNo"
             android:textColorHint="#fff"
             android:gravity="center"
@@ -42,7 +44,7 @@
             android:layout_width="wrap_content"
             android:textColorHint="#fff"
             android:layout_height="wrap_content"
-            android:textColor="#fff"
+            android:textColor="#FFFBE7"
             android:layout_margin="1dp"
             android:hint="student Name"
             android:gravity="left"
@@ -65,7 +67,7 @@
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:text="Present"
-            android:padding="2dp"
+            android:padding="4dp"
             android:textStyle="bold"
             android:textColorHighlight="#00f"
             android:background="#fff"

@@ -20,7 +20,7 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     AsyncHttpClient client;
     RequestParams params;
-    public String url="http://192.168.241.167:5000";
+    public String url=BaseUrl.url;
     @Override
     public void onBackPressed() {
         exit();

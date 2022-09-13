@@ -7,20 +7,21 @@
     android:orientation="vertical"
     tools:context=".manualattendance"
     android:background="#EDEDED">
+
     <TextView
         android:id="@+id/heading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ATTENDANCE"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:textColor="#fff"
-        android:background="@drawable/loginbtnbg"
-        android:layout_centerHorizontal="true"
-        android:textSize="18dp"
-        android:layout_margin="5dp"
         android:layout_alignParentTop="true"
-        android:padding="5dp"/>
+        android:layout_centerHorizontal="true"
+        android:layout_margin="0dp"
+        android:background="#035397"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="ATTENDANCE"
+        android:textColor="#fff"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/manatt"
@@ -28,15 +29,23 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/heading"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="55dp"
+        android:background="#DBDFFD"
         android:scrollbars="vertical" />
 
     <Button
+        android:id="@+id/manattsub"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
-        android:layout_margin="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="2dp"
         android:background="@drawable/loginbtnbg"
-        android:text="SUBMIT" />
+        android:text="SUBMIT"
+        android:textColor="#FFFBE7"
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

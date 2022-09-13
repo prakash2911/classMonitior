@@ -40,7 +40,10 @@ public class takeattendance extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(takeattendance.this,manualattendance.class);
+                finish();
+                overridePendingTransition(0, 0);
                 startActivity(i);
+                overridePendingTransition(0, 0);
             }
         });
         RelativeLayout aiatt=(RelativeLayout) findViewById(R.id.aiattendance);
