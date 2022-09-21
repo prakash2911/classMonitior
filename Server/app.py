@@ -1,5 +1,6 @@
 # from unicodedata import name
 import base64
+import os
 from pydoc import classname
 from select import select
 import pandas as pd
@@ -15,7 +16,9 @@ from PIL import Image
 # from PIL import ImageEnhance
 import uuid
 from finalML.cropper import cropper
-ALLOWED_EXTENSIONS={'jpeg','png','jpeg'}
+from werkzeug.utils import secure_filename
+
+
 mydb = mysql.connector.connect(
     host="localhost",
     user="root",
@@ -25,7 +28,12 @@ mydb = mysql.connector.connect(
 cursor = mydb.cursor()
 app = Flask(__name__)
 app.secret_key="?mvf3t56@345+1234BgTNDY636773!@#"
+ALLOWED_EXTENSIONS={'jpeg','png','jpeg'}
 years=['2022','2021','2020','2023']
+UPLOAD_FOLDER = '/images'
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 ## TESTING SESSION 
 
@@ -104,7 +112,7 @@ def viewclass():
     res={}
     c=1
     for i in detail:
-        res["class"+str(c)]={"class":i[1],"course":i[2],"strength":i[3]} 
+        res["class"+str(c)]={"class":i[1],"course":i[2],"strength":str(i[3])} 
         c=c+1
     return res
 
@@ -154,9 +162,28 @@ def imageUpload():
     imgdata=base64.b64decode(request.form['image'])
     img = Image.open(io.BytesIO(imgdata))
     img.save(f"finalML/frames/{uuid.uuid1()}.jpeg",quality=100)
-    cropper()
-    return "Image Uploaded Sucessfully"
+    student =  cropper()
+    students = {"s"+str(i):student[i] for i in range(0,len(student))}
+    return students
     
+# @app.route("/imageupload",methods=["Post"])
+# def imageUpload():
+#     if request.method == 'POST':
+#         print("hh")
+#         if 'pic' not in request.files:
+#             print("No file")
+#             return "no file"
+#         file = request.files['pic']
+#         if file.filename == '':
+#             print("No filename")
+#             return "No selected file"
+#         if file and allowed_file(file.filename):
+#             filename = secure_filename(file.filename)
+#             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+#             print("success")
+#             return "File uploaded "
+#     return "helo"
+
 ## UPDATE ATTENDENCE
 
 @app.route("/updateattendance",methods=["POST"])

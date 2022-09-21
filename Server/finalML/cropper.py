@@ -11,8 +11,8 @@ def cropper():
         source = "finalML/frames/"
         source += i
         img = cv2.imread(source)
-        print(source,img)
-
+        #print(source,img)
+        ph, pl, chan = img.shape
         #print(img)
         # Convert into grayscale
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
@@ -30,8 +30,14 @@ def cropper():
             picName += str(c)
             picName += ".jpg"
             c += 1
+            # yi = 0
+            # xi = 0
+            yi = int(ph * 0.1)
+            xi = int(pl* 0.1)
             #cv2.rectangle(img, (x, y), (x+w, y+h), (0, 0, 255), 2)
-            faces = img[y-500:y + h+500, x-500:x + w+500]
+            faces = img[y-yi:y + h+yi, x-xi:x + w+xi]
             print(picName)
             cv2.imwrite(os.path.join(path ,picName), faces)
-    deepFace(c)
+    attendance = deepFace(c)
+    print(attendance)
+    return attendance

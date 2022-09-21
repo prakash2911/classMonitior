@@ -3,12 +3,12 @@ def deepFace(c):
     attendance = set()
     for i in range(1,c):
         model1 = DeepFace.build_model("VGG-Face")
-        picpath = "testingpics/face"
+        picpath = "D:/Projects/classMonitior/Server/finalML/testingpics/face"
         picpath += str(i)
         picpath += ".jpg"
         print(picpath)
         try:
-            df = DeepFace.find(img_path = picpath, db_path = "training",distance_metric = "euclidean_l2",model=model1,model_name = "VGG-Face")
+            df = DeepFace.find(img_path = picpath, db_path = "D:/Projects/classMonitior/Server/finalML/training",distance_metric = "euclidean_l2",model=model1,model_name = "VGG-Face")
         #print(df)
         except:
             print("hi")
@@ -19,14 +19,14 @@ def deepFace(c):
             l=x[0][0]
             y = x[0][1]
             print(y)
-            if(y>0.85):
+            if(y>0.70):
                 l = "none"
                 print("none")
                 # return l
             else:
                 l=l.split("/")
                 print(l)
-                l=l[0]
+                l=l[5]
                 l=l.split("\\")
                 l=l[1]
                 print(l)
@@ -40,6 +40,7 @@ def deepFace(c):
     for i in l:
         print(i)
     import os
+    return list(attendance)
  
     # dir = 'frames'
     # for f in os.listdir(dir):
