@@ -3,8 +3,10 @@ package com.example.igo;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,7 +22,10 @@ import cz.msebera.android.httpclient.Header;
 public class MainActivity extends AppCompatActivity {
     AsyncHttpClient client;
     RequestParams params;
-    public String url=BaseUrl.url;
+    public String url = BaseUrl.url;
+    public SharedPreferences sf;
+    public SharedPreferences.Editor editor;
+
     @Override
     public void onBackPressed() {
         exit();
@@ -54,38 +59,51 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        EditText uname=(EditText)findViewById(R.id.userid);
-        EditText password=(EditText)findViewById(R.id.passwrd);
-        client=new AsyncHttpClient();
-        Button b = (Button) findViewById(R.id.sign_in);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String log_in=url+"/login";
-                params=new RequestParams();
-                params.add("uname",uname.getText().toString());
-                params.add("pass",password.getText().toString());
-                /*client.post(log_in, params, new AsyncHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                        String str=new String(responseBody);
-                        if(str.equals("true")){
-                        //if(true){*/
-                            Intent i=new Intent(MainActivity.this,MainActivity2.class);
-                            startActivity(i);
-                        /*}
-                        else{
-                            Toast.makeText(getApplicationContext(),"Incorrect Credentials",Toast.LENGTH_SHORT).show();
+        sf = getSharedPreferences("IGO3", Context.MODE_PRIVATE);
+        editor = sf.edit();
+        String islogin = sf.getString("teacher_id", "none");
+        if (!islogin.equalsIgnoreCase("none")) {
+            Intent i = new Intent(MainActivity.this, Homepage.class);
+            startActivity(i);
+        }
+        else {
+            setContentView(R.layout.activity_main);
+            EditText uname = (EditText) findViewById(R.id.userid);
+            EditText password = (EditText) findViewById(R.id.passwrd);
+            client = new AsyncHttpClient();
+            Button b = (Button) findViewById(R.id.sign_in);
+            b.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    String log_in = url + "/login";
+                    params = new RequestParams();
+                    params.add("uname", uname.getText().toString());
+                    params.add("pass", password.getText().toString());
+                    client.post(log_in, params, new AsyncHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+                            String str = new String(responseBody);
+                            if (str.equals("true")) {
+                                if (true) {
+                                    editor.putString("teacher_id", "jp@tn");
+                                    editor.apply();
+                                    editor.commit();
+                                    Intent i = new Intent(MainActivity.this, Homepage.class);
+                                    startActivity(i);
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Incorrect Credentials", Toast.LENGTH_SHORT).show();
+                                }
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                        Toast.makeText(getApplicationContext(),"Server Down",Toast.LENGTH_SHORT).show();
-                    }
-                });*/
-            }
-        });
+                        @Override
+                        public void onFailure(int statusCode, Header[] headers,
+                                              byte[] responseBody, Throwable error) {
+                            Toast.makeText(getApplicationContext(), "Server Down", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+            });
+        }
     }
 }

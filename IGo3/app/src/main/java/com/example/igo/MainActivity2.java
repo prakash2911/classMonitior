@@ -73,25 +73,24 @@ public class MainActivity2 extends AppCompatActivity {
         AsyncHttpClient client=new AsyncHttpClient();
 
         MainActivity mA=new MainActivity();
-        client.post(mA.url+"/test",new RequestParams(), new AsyncHttpResponseHandler() {
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String str=new String(responseBody);
-                Toast.makeText(getApplicationContext(),str, Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(getApplicationContext(),"WHO ARE U", Toast.LENGTH_SHORT).show();
-            }
-        });
+//        client.post(mA.url+"/test",new RequestParams(), new AsyncHttpResponseHandler() {
+//            @Override
+//            public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
+//                String str=new String(responseBody);
+//                Toast.makeText(getApplicationContext(),str, Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
+//                Toast.makeText(getApplicationContext(),"WHO ARE U", Toast.LENGTH_SHORT).show();
+//            }
+//        });
         b.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 switch (id) {
                     case R.id.my_class:
-
                         return true;
                     case R.id.attendance:
                         Intent i=new Intent(MainActivity2.this,Attendanceselection.class);

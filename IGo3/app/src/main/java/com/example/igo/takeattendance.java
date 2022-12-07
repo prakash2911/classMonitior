@@ -2,7 +2,9 @@ package com.example.igo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.media.CamcorderProfile;
@@ -26,32 +28,46 @@ import java.util.Date;
 
 public class takeattendance extends AppCompatActivity {
 
+    public SharedPreferences sf;
+    public SharedPreferences.Editor editor;
+
     public void onBackPressed() {
-        Intent i=new Intent(takeattendance.this,Attendanceselection.class);
+        Intent i=new Intent(takeattendance.this,Homepage.class);
         startActivity(i);
+        finish();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.take_attendance);
+        sf=getSharedPreferences("IGO3", Context.MODE_PRIVATE);
+        editor=sf.edit();
         RelativeLayout mnatt=(RelativeLayout) findViewById(R.id.manualattendance);
+        RelativeLayout aiatt=(RelativeLayout) findViewById(R.id.aiattendance);
+        String clas=sf.getString("classname","none");//getIntent().getStringExtra("class");
+        //Toast.makeText(getApplicationContext(),clas,Toast.LENGTH_SHORT).show();
         mnatt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(takeattendance.this,manualattendance.class);
-                finish();
-                overridePendingTransition(0, 0);
+                i.putExtra("class",clas);
+                i.putExtra("type","ma");
+                //overridePendingTransition(0, 0);
                 startActivity(i);
-                overridePendingTransition(0, 0);
+                finish();
+                //overridePendingTransition(0, 0);
             }
         });
-        RelativeLayout aiatt=(RelativeLayout) findViewById(R.id.aiattendance);
+
         aiatt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i=new Intent(takeattendance.this,cameraopentest.class);
+                i.putExtra("class",clas);
+                i.putExtra("type","aa");
                 startActivity(i);
+                finish();
             }
         });
     }

@@ -5,15 +5,18 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".homepage">
+    android:background="#607EAA"
+    tools:context=".Homepage">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#0f0"
-        android:orientation="horizontal">j
+        android:background="#8BBCCC"
+        android:padding="5dp"
+        android:orientation="horizontal">
 
         <Spinner
+            android:id="@+id/spinner_homepage"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center"
@@ -28,19 +31,24 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="55dp"
             android:gravity="center"
-            android:text="CLASS-MONITOR"
+            android:text="CLASS MONITOR"
             android:textSize="17dp"
+            android:textColor="#000"
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/addclasshmpg"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="#FFFBE7"
             android:text="ADD CLASS"
+            android:background="@drawable/loginbtnbg"
+            android:paddingHorizontal="10dp"
             android:textStyle="bold" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/myclasses"
+        android:id="@+id/my_class1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:translationZ="1dp"

@@ -24,8 +24,10 @@ import cz.msebera.android.httpclient.Header;
 public class Toserversend {
     public static final String TAG="ToServersend";
     public String url;
+    public String resp;
     public AsyncHttpClient client;
     public RequestParams params;
+    public Boolean response;
     public ArrayList<studentinfo_manatt> studinf;
     //public studentinfo_manatt temp;
     Toserversend(){
@@ -33,6 +35,7 @@ public class Toserversend {
         this.client=new AsyncHttpClient();
         this.params=new RequestParams();
         studinf=new ArrayList<studentinfo_manatt>();
+        response=false;
         //temp=new studentinfo_manatt("","",true);
         //this.response = "";
     }
@@ -82,7 +85,7 @@ public class Toserversend {
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
                 String str=new String(responseBody);
                 System.out.print("\n\n"+str+"\n\n");
-                Toast.makeText(context.getApplicationContext(),str,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context.getApplicationContext(),str,Toast.LENGTH_SHORT).show();
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
@@ -94,25 +97,58 @@ public class Toserversend {
         });
     }
 
-    public String picsend(Context context) {
-        String resp=new String();
+    public void picsend(Context context) {
+        //final String[] resp = {new String()};
         this.client.post(this.url,this.params, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-                String resp=new String(responseBody);
-//                System.out.print("\n\n"+str+"\n\n");
-                Toast.makeText(context.getApplicationContext(),resp,Toast.LENGTH_LONG).show();
+                String str =new String(responseBody);
+                resp=str;
+                response=true;
+                //if(response)                Toast.makeText(context.getApplicationContext(),"received:\n"+str,Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context.getApplicationContext(),"List1:"+resp,Toast.LENGTH_SHORT).show();
+                //System.out.println("\n\nHI:"+resp+"\n\n");
+//                printstr(context);
+                //System.out.print("\n\n"+resp+"\n\n");
+                //Toast.makeText(context.getApplicationConte
+                //
+                //
+                //
+                //
+                //
+                // xt(), resp,Toast.LENGTH_LONG).show();
+//                try {
+//                    JSONObject obj = new JSONObject(resp);
+//                    System.out.println("JSON Created");
+//                    for (int i = 0; i < obj.length(); i++) {
+//                        JSONObject obej = obj.getJSONObject(obj.names().getString(i));
+//                        studentinfo_manatt temp = new studentinfo_manatt("", "", true);
+//                        temp.setRegNo(obj.names().getString(i));
+//                        temp.setName(obej.names().getString(0));
+//                        Boolean flag = (obej.get(obej.names().getString(0)).toString() == "1") ? true : false;
+//                        temp.setCb(flag);
+//                        System.out.println(temp.getRegNo() + "\t" + temp.getName() + "\t" + temp.getCb());
+//                        //temp.setName(obj.get(obj.names().getString(i)).toString());
+////                        System.out.println(studinf[i].getName()+"\n");
+//                        studinf.add(temp);
+//                    }
+//                }catch (JSONException e){
+//                    System.out.println(e);
+//                }
             }
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                Toast.makeText(context,"Failure",Toast.LENGTH_SHORT).show();
+                Toast.makeText(context,"Failures",Toast.LENGTH_SHORT).show();
                 Log.i(TAG,"Failure");
                 //flag[0]=false;
                 //response=null;
             }
         });
-        return resp;
     }
+    public void printstr(Context context){
+        Toast.makeText(context.getApplicationContext(),resp,Toast.LENGTH_SHORT).show();
+    }
+
     //public String getResponse(){
 //        return this.response;
 //    }

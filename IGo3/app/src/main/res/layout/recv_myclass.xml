@@ -2,9 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginHorizontal="5dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="0dp"
     android:orientation="vertical"
-    android:background="#0ff">
+    android:background="#DBDFFD">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,19 +15,25 @@
         android:padding="5dp">
 
         <TextView
+            android:paddingLeft="10dp"
             android:id="@+id/class_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.65"
             android:hint="CLASS-NAME"
-            android:textSize="20dp" />
+            android:textColor="#000000"
+            android:textStyle="bold"
+            android:textSize="22dp" />
         <TextView
             android:id="@+id/course_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.35"
+            android:textColor="#000000"
+            android:paddingLeft="10dp"
             android:hint="COURSE"
-            android:textSize="20dp" />
+            android:textStyle="bold"
+            android:textSize="22dp" />
 
 
     </LinearLayout>
@@ -54,10 +62,13 @@
                     android:layout_marginStart="5dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
+                    android:paddingLeft="10dp"
                     android:layout_marginBottom="5dp"
                     android:text="Strength : "
-                    android:textColor="#60000000"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
                     android:textSize="20dp" />
+
                 <TextView
                     android:id="@+id/strength"
                     android:layout_width="wrap_content"
@@ -69,15 +80,21 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="#60000000"
+                    android:textStyle="bold"
+                    android:textColor="#000000"
                     android:textSize="20dp" />
             </LinearLayout>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/tkattendancebtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="TAKE ATTENDANCE" />
+                android:background="#3D8361"
+                android:elevation="20dp"
+                android:padding="8dp"
+                android:text="TAKE ATTENDANCE"
+                android:textColor="#EEF2E6" />
 
         </RelativeLayout>
     </LinearLayout>

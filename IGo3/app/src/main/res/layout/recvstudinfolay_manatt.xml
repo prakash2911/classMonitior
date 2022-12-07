@@ -4,11 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:layout_margin="3dp"
+    android:layout_margin="5dp"
     android:padding="2dp"
-    android:background="#42855B"
     >
-<!--FF4A4A-->
+<!--    android:background="#42855B"-->
+
+    <!--FF4A4A-->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

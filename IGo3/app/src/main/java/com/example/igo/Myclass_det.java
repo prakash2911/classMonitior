@@ -6,6 +6,10 @@ public class Myclass_det
     private String CourseName;
     private String Strength;
 
+    Myclass_det(){
+        this("","","");
+    }
+
     public Myclass_det(String cln,String csn,String stre){
         this.ClassName=new String(cln);
         this.CourseName=new String(csn);

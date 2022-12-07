@@ -19,10 +19,11 @@ import java.util.ArrayList;
 public class recview_manatt extends RecyclerView.Adapter<recview_manatt.ViewHolder> {
 
 
-
+    public int countabs;
     public ArrayList<studentinfo_manatt> studlist_manatt;
     public recview_manatt(ArrayList<studentinfo_manatt> stuinf){
         this.studlist_manatt=stuinf;
+        countabs=0;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
@@ -60,17 +61,30 @@ public class recview_manatt extends RecyclerView.Adapter<recview_manatt.ViewHold
         holder.studregno.setText(myListData.getRegNo());
         holder.cb.setOnCheckedChangeListener(null);//in some cases, it will prevent unwanted situations
         holder.cb.setChecked(myListData.getCb());
+        if(myListData.getCb())  holder.itemView.setBackgroundColor(Color.parseColor("#42855B"));
+        else    holder.itemView.setBackgroundColor(Color.parseColor("#fa7070"));
        holder.cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @SuppressLint("WrongConstant")
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 myListData.setCb(b);
                 holder.cb.setChecked(myListData.getCb());
-                //notifyDataSetChanged();
-                //String status=(myListData.getCb()==false)?"ABSENT":"PRESENT";
+                if(myListData.getCb()) {
+                    holder.itemView.setBackgroundColor(Color.parseColor("#42855B"));
+                    countabs-=1;
+                }
+                else  {
+                    holder.itemView.setBackgroundColor(Color.parseColor("#fa7070"));
+                    countabs+=1;
+                }
                 }
         });
+    }
 
+    public void updateData(ArrayList<studentinfo_manatt> viewModels) {
+        studlist_manatt.clear();
+        studlist_manatt.addAll(viewModels);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -78,4 +92,11 @@ public class recview_manatt extends RecyclerView.Adapter<recview_manatt.ViewHold
         return studlist_manatt.size();
     }
 
+    public int absentcount(){
+        int abs=0;
+        for(studentinfo_manatt i:studlist_manatt){
+            if(!i.getCb())  abs++;
+        }
+        return abs;
+    }
 }
